@@ -23,15 +23,31 @@ module.exports = {
         return res.status(201).json({success: "Item Saved successful"}); 
     },
 
-    // async index(req, res){
-    //     const user_id = req.headers.authorization;
+    async index(req, res){
+        const user_id = req.headers.authorization;
 
-    //     const items = await connection('items')
-    //     .select(['item_id', 'item_name','data','name','whatsapp'])
-    //     .where('User_id', user_id);
+        const items = await connection('items')
+        .select(['item_id', 'item_name','data','name','whatsapp'])
+        .where('User_id', user_id);
 
-    //     return res.status(200).json(items);
-    // },
+        return res.status(200).json(items);
+    },
+
+    async getItem(req, res){
+        const { item_id } = req.params;
+        const user_id = req.headers.authorization;
+
+        const item = await connection('items')
+        .select(['item_id', 'item_name', 'name', 'whatsapp'])
+        .where('item_id', item_id)
+        .andWhere('User_id', user_id);
+
+        if(!item.length > 0){
+            return res.status(404).json({error: `Item not found!`});
+        }
+
+        return res.status(200).json(item);
+    },
 
     async update(req, res){
         const { item_id } = req.params;

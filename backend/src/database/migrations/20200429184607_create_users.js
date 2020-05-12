@@ -1,8 +1,9 @@
 
 exports.up = function(knex) {
     return knex.schema.createTable('users', (table) => {
-        table.increments('user_id').primary();
+        table.string('user_id').primary();
         table.string('name').notNullable();
+        table.date('created_at').defaultTo(knex.fn.now());
     });
 };
 
