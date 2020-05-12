@@ -2,7 +2,7 @@
 
 ## Tecnologias Utilizadas
 
-- React Native + Expo
+- React Native
 - Node js 
 - Knex js (Query Builder)
 - SQLite
